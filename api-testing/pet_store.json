@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "7c25c50e-097e-4156-8247-3432893742cd",
+		"name": "Petstore API Tests",
+		"description": "Petstore API tests for technical test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46437583",
+		"_collection_link": "https://alba-612886.postman.co/workspace/Alba's-Workspace~873e4f42-b9ab-4f71-82f8-7b253eb5cc7d/collection/46437583-7c25c50e-097e-4156-8247-3432893742cd?action=share&source=collection_link&creator=46437583"
+	},
+	"item": [
+		{
+			"name": "Add Pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Pet name is Mango\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Mango\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"Dogs\"\n  },\n  \"name\": \"Mango\",\n  \"photoUrls\": [\n    \"https://i.imgur.com/e05qeJD.jpeg\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"cute\"\n    }\n  ],\n  \"status\": \"available\"\n}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Pet status is updated to adopted\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Adopted\");",
+							"    pm.expect(jsonData.name).to.eql(\"Mango\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 987654321,\n    \"name\": \"Mango\",\n    \"status\": \"Adopted\",\n    \"category\": {\n        \"id\": 1,\n        \"name\": \"Dogs\"\n    },\n    \"photoUrls\": [\n        \"https://i.imgur.com/e05qeJD.jpeg\"\n    ],\n    \"tags\": [\n        {\n            \"id\": 1,\n            \"name\": \"fluffy\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pet by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Pet has correct updated data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Mango\");",
+							"    pm.expect(jsonData.status).to.eql(\"Adopted\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/987654321",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"987654321"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
